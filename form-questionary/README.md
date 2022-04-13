@@ -14,4 +14,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Further help
 
-Deploy on GitHub ng deploy with --base-href=angular_reactive_forms_tt
+For deploy on GitHub add to your project
+ng add angular-cli-ghpages
+then
+ng deploy --base-href=questionary-tt-angular

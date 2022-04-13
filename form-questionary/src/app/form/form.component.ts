@@ -38,10 +38,10 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.employees = this._employeeSevice.getAll();
     this.employeeControl = this.formBuilder.group({
-      firstName: new FormControl('', [
+      firstName: ['', [
         Validators.required,
         Validators.pattern("^[A-Z][A-Za-z- ]{1,20}$")
-      ]),
+      ]],
       lastName: new FormControl('', [
         Validators.required,
         Validators.pattern("^[A-Z][A-Za-z- ]{1,20}$")
@@ -61,7 +61,6 @@ export class FormComponent implements OnInit {
       }),
     });
   }
-
 
   onSubmit() {
     console.log(this.employeeControl);
