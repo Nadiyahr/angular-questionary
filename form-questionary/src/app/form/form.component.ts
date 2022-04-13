@@ -55,11 +55,34 @@ export class FormComponent implements OnInit {
         Validators.email,
         DuplicateEmailCheck.checkEmail(this._employeeSevice)
       ]),
-      hobby: new FormGroup({
-        name: new FormControl(null),
-        duration: new FormControl(null),
-      }),
+      hobby: this.formBuilder.array([
+        {
+          name: new FormControl(null),
+          duration: new FormControl(null),
+        },
+      ]),
     });
+  }
+
+  newHobby(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
+      ]],
+      duration: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
+      ]],
+    })
+  }
+
+  addNewHobby(): void {
+    this.hobby.push(this.newHobby())
+  }
+
+  get hobby() {
+    return this.employeeControl.get('hobby') as FormArray;
   }
 
   onSubmit() {

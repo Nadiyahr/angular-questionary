@@ -1,19 +1,19 @@
-<form class="row g-3 needs-validation" [formGroup]="employeeControl" (ngSubmit)="onSubmit()">
+<form class="row g-2 needs-validation" [formGroup]="employeeControl" (ngSubmit)="onSubmit()">
   <div class="m-4">
     <h1>Front-End Developer</h1>
   <div class="mb-3 row">
     <label
-      for="ln"
-      class="col-sm-2 col-form-label"
+      for="fn"
+      class="col-sm-3 col-form-label"
       [ngStyle]="{'font-weight': '700'}"
     >
       First Name
     </label>
-    <div class="col-sm-4">
+    <div class="col-sm-9">
       <input
         type="text"
         name="firstName"
-        id="ln"
+        id="fn"
         formControlName="firstName"
         class="form-control"
         [ngClass]="{'is-invalid': (employeeControl.controls['firstName'].invalid
@@ -21,9 +21,151 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['firstName'].invalid">
-        * Firstname is required !!
+        * First name is required !!
       </div>
     </div>
+  </div>
+  <div class="mb-3 row">
+    <label
+      for="ln"
+      class="col-sm-3 col-form-label"
+      [ngStyle]="{'font-weight': '700'}"
+    >
+      Last Name
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        name="lastName"
+        id="ln"
+        formControlName="lastName"
+        class="form-control"
+        [ngClass]="{'is-invalid': (employeeControl.controls['lastName'].invalid
+        && employeeControl.controls['lastName'].touched)}"
+        required
+      >
+      <div class="invalid-tooltip" *ngIf="employeeControl.controls['lastName'].invalid">
+        * Last name is required !!
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label
+      for="bd"
+      class="col-sm-3 col-form-label"
+      [ngStyle]="{'font-weight': '700'}"
+    >
+      Date Of Birth
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        name="dateOfBirth"
+        id="bd"
+        formControlName="dateOfBirth"
+        class="form-control"
+        [ngClass]="{'is-invalid': (employeeControl.controls['dateOfBirth'].invalid
+        && employeeControl.controls['dateOfBirth'].touched)}"
+        required
+      >
+      <div class="invalid-tooltip" *ngIf="employeeControl.controls['dateOfBirth'].invalid">
+        * Date Of Birth is required !!
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label
+      for="email"
+      class="col-sm-3 col-form-label"
+      [ngStyle]="{'font-weight': '700'}"
+    >
+      Email
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        name="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{'is-invalid': (employeeControl.controls['email'].invalid
+        && employeeControl.controls['email'].touched)}"
+        required
+      >
+      <div class="invalid-tooltip" *ngIf="employeeControl.controls['email'].invalid">
+        * Last name is required !!
+      </div>
+    </div>
+  </div>
+  <div formArrayName="hobby">
+    <h2>Hobbies</h2>
+    <div class="row gx-3 gy-2 align-items-center">
+      <div class="col-sm-6">
+        <input
+          type="text"
+          value="Name"
+          readonly class="form-control-plaintext"
+          [ngStyle]="{'font-weight': '700'}"
+        >
+      </div>
+    
+      <div class="col-sm-6">
+        <input
+          type="text"
+          value="Duration"
+          readonly class="form-control-plaintext"
+          [ngStyle]="{'font-weight': '700'}"
+        >
+      </div>
+    </div>
+  </div>
+  <fieldset
+      *ngFor="let car of hobby.controls; let i = index;"
+      [formGroupName]="i"
+      class="row gy-2 gx-3 align-items-center"
+    >
+    <div class="col-sm-6 mb-2">
+      <label [for]="'brand' + i" class="visually-hidden"></label>
+      <input
+        [id]="'brand' + i"
+        type="text"
+        name="brand"
+        formControlName="brand"
+        class="form-control"
+        [ngClass]="{'is-invalid': (hobby.controls[i].get('brand')?.invalid
+        && (hobby.controls[i].get('brand')?.dirty
+        || hobby.controls[i].get('brand')?.touched))}"
+        required
+      >
+      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('brand')?.invalid">
+        * The name is required !!
+      </div>
+    </div>
+    <div class="col-sm-6 mb-2">
+      <label [for]="'brand' + i" class="visually-hidden"></label>
+      <input
+        [id]="'brand' + i"
+        type="text"
+        name="brand"
+        formControlName="brand"
+        class="form-control"
+        [ngClass]="{'is-invalid': (hobby.controls[i].get('brand')?.invalid
+        && (hobby.controls[i].get('brand')?.dirty
+        || hobby.controls[i].get('brand')?.touched))}"
+        required
+      >
+      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('brand')?.invalid">
+        * ADuration is required !!
+      </div>
+    </div>
+  </fieldset>
+  <div class="col-sm-4 mb-4" >
+    <button
+      (click)="addNewHobby()"
+      class="mt-3 btn btn-primary"
+    >
+      + Add New Hobbie
+    </button>
   </div>
   </div>
 </form>

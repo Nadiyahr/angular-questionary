@@ -2,6 +2,8 @@
 
 [DEMO](https://nadiyahr.github.io/questionary-tt-angular/)
 
+[Task](https://docs.google.com/document/d/1L0UMjgyIpQHyS8FdBaXoaYTERDQKyP4z/edit?usp=sharing&ouid=1150592304399118113913&rtpof=true&sd=true)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 
 ## Development server
