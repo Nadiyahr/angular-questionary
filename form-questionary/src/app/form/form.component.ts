@@ -23,8 +23,9 @@ import { MinMaxYearForbiden } from '../Utility/minMaxYearForbiden';
 export class FormComponent implements OnInit {
   public employees: Employee[] = [];
   employeeControl!: FormGroup;
-  selectFramework = ['angular', 'react', 'vue'];
-  selectVersion = {
+  selectedFramework: string = '';
+  frameworks = ['angular', 'react', 'vue'];
+  frameworkVersion = {
     angular: ['1.1.1', '1.2.1', '1.3.3'],
     react: ['2.1.2', '3.2.4', '4.3.1'],
     vue: ['3.3.1', '5.2.1', '5.1.3'],
@@ -50,6 +51,8 @@ export class FormComponent implements OnInit {
         Validators.required,
         MinMaxYearForbiden.checkYear(),
       ]),
+      framework: ['', [Validators.required]],
+      frameworkVersion: ['', [Validators.required]],
       email: new FormControl('', [
         Validators.required,
         Validators.email,
@@ -62,6 +65,10 @@ export class FormComponent implements OnInit {
         },
       ]),
     });
+  }
+
+  get hobby() {
+    return this.employeeControl.get('hobby') as FormArray;
   }
 
   newHobby(): FormGroup {
@@ -81,8 +88,14 @@ export class FormComponent implements OnInit {
     this.hobby.push(this.newHobby())
   }
 
-  get hobby() {
-    return this.employeeControl.get('hobby') as FormArray;
+  changeFram(e: any) {
+    this.framework?.setValue(e.target.value, {
+      onlySelf: true,
+    })
+  }
+
+  get framework() {
+    return this.employeeControl.get('framework');
   }
 
   onSubmit() {

@@ -21,7 +21,7 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['firstName'].invalid">
-        * First name is required !!
+        <sup>*</sup> First name is required !!
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['lastName'].invalid">
-        * Last name is required !!
+        <sup>*</sup> Last name is required !!
       </div>
     </div>
   </div>
@@ -69,8 +69,24 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['dateOfBirth'].invalid">
-        * Date Of Birth is required !!
+        <sup>*</sup> Date Of Birth is required !!
       </div>
+    </div>
+  </div>
+  <div class="d-grid">
+    <select
+      class="custom-select mb-3"
+      (change)="changeFram($event)"
+      formControlName="cityName"
+    >
+      <option value="">Choose framework</option>
+      <option *ngFor="let framework of frameworks" [ngValue]="framework">
+        {{ framework }}
+      </option>
+    </select>
+    <!-- error block -->
+    <div class="invalid-feedback" *ngIf="frameworks">
+      <sup>*</sup>Please provide framework name
     </div>
   </div>
   <div class="mb-3 row">
@@ -93,7 +109,7 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['email'].invalid">
-        * Last name is required !!
+        <sup>*</sup> This email is already registered !!
       </div>
     </div>
   </div>
