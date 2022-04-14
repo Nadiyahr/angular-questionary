@@ -58,16 +58,10 @@
       Date Of Birth
     </label>
     <div class="col-sm-9">
-      <input
-        type="text"
-        name="dateOfBirth"
-        id="bd"
-        formControlName="dateOfBirth"
-        class="form-control"
-        [ngClass]="{'is-invalid': (employeeControl.controls['dateOfBirth'].invalid
-        && employeeControl.controls['dateOfBirth'].touched)}"
-        required
-      >
+      <ngbd-datepicker-popup
+        [date]="date"
+        (extract)="extractDate($event)"
+      ></ngbd-datepicker-popup>
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['dateOfBirth'].invalid">
         <sup>*</sup> Date Of Birth is required !!
       </div>
@@ -205,7 +199,7 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('duration')?.invalid">
-        * ADuration is required !!
+        * Duration is required !!
       </div>
     </div>
   </fieldset>

@@ -9,10 +9,12 @@ import {
   ValidatorFn,
   Validators 
 } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/employee';
 import { DuplicateEmailCheck } from '../Utility/checkDuplicateEmail';
 import { MinMaxYearForbiden } from '../Utility/minMaxYearForbiden';
+// import { NgbdDatepickerPopup } from '../datepicker-popup/datepicker-popup.component';
 
 @Component({
   selector: 'app-form',
@@ -21,7 +23,8 @@ import { MinMaxYearForbiden } from '../Utility/minMaxYearForbiden';
 })
 
 export class FormComponent implements OnInit {
-  public employees: Employee[] = [];
+  // @Input() model!: NgbDateStruct;
+  employees: Employee[] = [];
   employeeControl!: FormGroup;
   selectedFramework: 'angular'|'react'|'vue'|'' = '';
   frameworks = ['angular', 'react', 'vue'];
@@ -30,6 +33,7 @@ export class FormComponent implements OnInit {
     react: ['2.1.2', '3.2.4', '4.3.1'],
     vue: ['3.3.1', '5.2.1', '5.1.3'],
   };
+  date!: string;;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -88,6 +92,11 @@ export class FormComponent implements OnInit {
     this.hobby.push(this.newHobby())
   }
 
+  extractDate(e: NgbDateStruct) {
+    console.log(e)
+    this.date = `${e.day}-${e.month}-${e.year}`
+  }
+
   changeFram(e: any) {
     this.framework?.setValue(e.target.value, {
       onlySelf: true,
@@ -103,7 +112,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.employeeControl);
+    console.log(this.employeeControl, this.date);
     // console.log(this.employeeControl.get('firstName').value);
     }
 }

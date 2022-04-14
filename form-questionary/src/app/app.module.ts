@@ -12,13 +12,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import { EmployeeService } from './employee.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdDatepickerPopup } from './datepicker-popup/datepicker-popup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    DatepickerCustomComponent
+    DatepickerCustomComponent,
+    NgbdDatepickerPopup
   ],
   imports: [
     MatSelectModule,
@@ -30,7 +33,8 @@ import { EmployeeService } from './employee.service';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    NgbModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
