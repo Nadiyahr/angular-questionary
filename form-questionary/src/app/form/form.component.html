@@ -73,20 +73,54 @@
       </div>
     </div>
   </div>
-  <div class="d-grid">
-    <select
-      class="custom-select mb-3"
-      (change)="changeFram($event)"
-      formControlName="cityName"
+  <div class="mb-3 row">
+    <label
+      for="framework"
+      class="col-sm-3 col-form-label"
+      [ngStyle]="{'font-weight': '700'}"
     >
-      <option value="">Choose framework</option>
-      <option *ngFor="let framework of frameworks" [ngValue]="framework">
-        {{ framework }}
-      </option>
-    </select>
-    <!-- error block -->
-    <div class="invalid-feedback" *ngIf="frameworks">
-      <sup>*</sup>Please provide framework name
+      Framework
+    </label>
+    <div class="col-sm-9">
+      <select
+        class="form-select"
+        (change)="changeFram($event)"
+        formControlName="framework"
+        id="framework"
+      >
+        <option value="">Choose a framework</option>
+        <option *ngFor="let framework of frameworks" [ngValue]="framework">
+          {{ framework }}
+        </option>
+      </select>
+      <div class="invalid-tooltip" *ngIf="frameworks">
+        <sup>*</sup>Please provide framework name
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row" *ngIf="selectedFramework">
+    <label
+      for="framework"
+      class="col-sm-3 col-form-label"
+      [ngStyle]="{'font-weight': '700'}"
+    >
+      {{ selectedFramework }} version
+    </label>
+    <div class="col-sm-9">
+      <select
+        class="form-select"
+        (change)="changeFram($event)"
+        formControlName="frameworkVersion"
+        id="frameworkVersion"
+      >
+        <option value="">Choose a ver</option>
+        <option *ngFor="let framework in frameworkVersion" [ngValue]="framework">
+          {{ framework[selectedFramework] }}
+        </option>
+      </select>
+      <div class="invalid-tooltip" *ngIf="frameworks">
+        <sup>*</sup>Please provide framework name
+      </div>
     </div>
   </div>
   <div class="mb-3 row">
@@ -136,41 +170,41 @@
     </div>
   </div>
   <fieldset
-      *ngFor="let car of hobby.controls; let i = index;"
+      *ngFor="let hob of hobby.controls; let i = index;"
       [formGroupName]="i"
       class="row gy-2 gx-3 align-items-center"
     >
     <div class="col-sm-6 mb-2">
-      <label [for]="'brand' + i" class="visually-hidden"></label>
+      <label [for]="'name' + i" class="visually-hidden"></label>
       <input
-        [id]="'brand' + i"
+        [id]="'name' + i"
         type="text"
-        name="brand"
-        formControlName="brand"
+        name="name"
+        formControlName="name"
         class="form-control"
-        [ngClass]="{'is-invalid': (hobby.controls[i].get('brand')?.invalid
-        && (hobby.controls[i].get('brand')?.dirty
-        || hobby.controls[i].get('brand')?.touched))}"
+        [ngClass]="{'is-invalid': (hobby.controls[i].get('name')?.invalid
+        && (hobby.controls[i].get('name')?.dirty
+        || hobby.controls[i].get('name')?.touched))}"
         required
       >
-      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('brand')?.invalid">
+      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('name')?.invalid">
         * The name is required !!
       </div>
     </div>
     <div class="col-sm-6 mb-2">
-      <label [for]="'brand' + i" class="visually-hidden"></label>
+      <label [for]="'duration' + i" class="visually-hidden"></label>
       <input
-        [id]="'brand' + i"
+        [id]="'duration' + i"
         type="text"
-        name="brand"
-        formControlName="brand"
+        name="duration"
+        formControlName="duration"
         class="form-control"
-        [ngClass]="{'is-invalid': (hobby.controls[i].get('brand')?.invalid
-        && (hobby.controls[i].get('brand')?.dirty
-        || hobby.controls[i].get('brand')?.touched))}"
+        [ngClass]="{'is-invalid': (hobby.controls[i].get('duration')?.invalid
+        && (hobby.controls[i].get('duration')?.dirty
+        || hobby.controls[i].get('duration')?.touched))}"
         required
       >
-      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('brand')?.invalid">
+      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('duration')?.invalid">
         * ADuration is required !!
       </div>
     </div>

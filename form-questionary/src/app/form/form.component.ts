@@ -23,7 +23,7 @@ import { MinMaxYearForbiden } from '../Utility/minMaxYearForbiden';
 export class FormComponent implements OnInit {
   public employees: Employee[] = [];
   employeeControl!: FormGroup;
-  selectedFramework: string = '';
+  selectedFramework: 'angular'|'react'|'vue'|'' = '';
   frameworks = ['angular', 'react', 'vue'];
   frameworkVersion = {
     angular: ['1.1.1', '1.2.1', '1.3.3'],
@@ -91,7 +91,11 @@ export class FormComponent implements OnInit {
   changeFram(e: any) {
     this.framework?.setValue(e.target.value, {
       onlySelf: true,
-    })
+    });
+
+    this.selectedFramework = e.target.value.replace(/\d: /, '');
+
+    console.log(this.selectedFramework);
   }
 
   get framework() {
