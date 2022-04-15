@@ -37,7 +37,7 @@ export class FormComponent implements OnInit {
   };
   model!: NgbDateStruct;
   date!: string;
-;
+  duplicateEmail = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -59,58 +59,24 @@ export class FormComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       framework: new FormControl('', [Validators.required]),
       frameworkVersion: new FormControl('', [Validators.required]),
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email], DuplicateEmailCheck.checkEmail(this._employeeSevice)],
       hobby: this.formBuilder.array([]),
     });
 
     this.addNewHobby();
   }
 
-  // usernameValidator(): AsyncValidatorFn {
-  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-  //     return this.emailExists(control.value).pipe(
-  //       map(res => {
-  //         // if res is true, username exists, return true
-  //         return res ? { usernameExists: true } : null;
-  //         // NB: Return null if there is no error
-  //       })
-  //     );
-  //   };
-  // }
-
+  //datepiker set value
   getStartDate() {
-    let timestamp = this.model != null ? new Date(this.model.year, this.model.month-1, this.model.day).getTime() : new Date().getTime();
+    let timestamp = this.model != null
+      ? new Date(this.model.year, this.model.month-1, this.model.day).getTime()
+      : new Date().getTime();
     this.employeeControl.controls['dateOfBirth'].setValue(this.datePipe.transform(timestamp, 'dd-MM-YYYY'));
   }
 
-  get hobby() {
-    return this.employeeControl.get('hobby') as FormArray;
-  }
-
+  //set value select framework
   get framework() {
     return this.employeeControl.get('fra mework');
-  }
-
-  get frameworkVersion() {
-    return this.employeeControl.get('frameworkVersion');
-   
-  }
-
-  newHobby(): FormGroup {
-    return this.formBuilder.group({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
-      ]),
-      duration: new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
-      ]),
-    })
-  }
-
-  addNewHobby(): void {
-    this.hobby.push(this.newHobby())
   }
 
   changeFram(e: any) {
@@ -123,9 +89,37 @@ export class FormComponent implements OnInit {
     console.log(this.selectedFramework);
   }
 
+  //set value select frameworkVersion
+  get frameworkVersion() {
+    return this.employeeControl.get('frameworkVersion');
+   
+  }
+
   changeVersion(e: any) {
     this.frameworkVersion?.setValue(e.target.value, {
       onlySelf: true,
+    })
+  }
+
+  //set hobby
+  get hobby() {
+    return this.employeeControl.get('hobby') as FormArray;
+  }
+
+  addNewHobby(): void {
+    this.hobby.push(this.newHobby())
+  }
+
+  newHobby(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
+      ]],
+      duration: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Z][A-Za-z- ]{2,20}$")
+      ]],
     })
   }
 

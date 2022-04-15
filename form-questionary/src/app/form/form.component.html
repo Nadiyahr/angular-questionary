@@ -61,9 +61,21 @@
       <form class="row row-cols-sm-9">
         <div class="col-12">
           <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd"
-                   name="dp" [value]="getStartDate()" [(ngModel)]="model" formContro="employeeControl.controls[dateOfBirth']" ngbDatepicker #d="ngbDatepicker">
-            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+            <input
+              class="form-control"
+              placeholder="dd-mm-yyyy"
+              name="dp"
+              [value]="getStartDate()"
+              [(ngModel)]="model"
+              formContro="employeeControl.controls[dateOfBirth']"
+              ngbDatepicker #d="ngbDatepicker"
+              [minDate]="{year: 1960, month: 1, day: 1}"
+              [maxDate]="{year: 2005, month: 12, day: 31}"
+            >
+            <button
+              class="btn btn-outline-secondary calendar"
+              (click)="d.toggle()"
+              type="button">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
               </svg>
@@ -146,7 +158,10 @@
         required
       >
       <div class="invalid-tooltip" *ngIf="employeeControl.controls['email'].invalid">
-        <sup>*</sup> This email is already registered !!
+        <sup>*</sup> This email is invalid !!
+      </div>
+      <div class="invalid-tooltip" *ngIf="employeeControl.controls['email'].hasError('duplicateEmail')">
+        <sup>*</sup> This email is allrready exist !!
       </div>
     </div>
   </div>
@@ -172,43 +187,41 @@
       </div>
     </div>
   </div>
-  <fieldset
-      *ngFor="let hob of hobby.controls; let i = index;"
-      [formGroupName]="i"
-      class="row gy-2 gx-3 align-items-center"
-    >
-    <div class="col-sm-6 mb-2">
-      <label [for]="'name' + i" class="visually-hidden"></label>
-      <input
-        [id]="'name' + i"
-        type="text"
-        name="name"
-        formControlName="name"
-        class="form-control"
-        [ngClass]="{'is-invalid': (hobby.controls[i].get('name')?.invalid
-        && (hobby.controls[i].get('name')?.dirty
-        || hobby.controls[i].get('name')?.touched))}"
-        required
-      >
-      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('name')?.invalid">
-        * The name is required !!
+  <fieldset *ngFor="let hob of hobby.controls; let i = index;">
+    <div class="row gy-2 gx-3 align-items-center" formGroupName="{{i}}"> 
+      <div class="col-sm-6 mb-2">
+        <label [for]="'name' + i" class="visually-hidden"></label>
+        <input
+          [id]="'name' + i"
+          type="text"
+          name="name"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{'is-invalid': (hobby.controls[i].get('name')?.invalid
+          && (hobby.controls[i].get('name')?.dirty
+          || hobby.controls[i].get('name')?.touched))}"
+          required
+        >
+        <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('name')?.invalid">
+          * The name is required !!
+        </div>
       </div>
-    </div>
-    <div class="col-sm-6 mb-2">
-      <label [for]="'duration' + i" class="visually-hidden"></label>
-      <input
-        [id]="'duration' + i"
-        type="text"
-        name="duration"
-        formControlName="duration"
-        class="form-control"
-        [ngClass]="{'is-invalid': (hobby.controls[i].get('duration')?.invalid
-        && (hobby.controls[i].get('duration')?.dirty
-        || hobby.controls[i].get('duration')?.touched))}"
-        required
-      >
-      <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('duration')?.invalid">
-        * Duration is required !!
+      <div class="col-sm-6 mb-2">
+        <label [for]="'duration' + i" class="visually-hidden"></label>
+        <input
+          [id]="'duration' + i"
+          type="text"
+          name="duration"
+          formControlName="duration"
+          class="form-control"
+          [ngClass]="{'is-invalid': (hobby.controls[i].get('duration')?.invalid
+          && (hobby.controls[i].get('duration')?.dirty
+          || hobby.controls[i].get('duration')?.touched))}"
+          required
+        >
+        <div class="invalid-tooltip" *ngIf="hobby.controls[i].get('duration')?.invalid">
+          * Duration is required !!
+        </div>
       </div>
     </div>
   </fieldset>

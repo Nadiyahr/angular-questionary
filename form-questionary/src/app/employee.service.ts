@@ -19,7 +19,7 @@ export class EmployeeService {
         {name: 'tennis', duration: '6 month'}
       ]
     },
-  ]
+  ];
 
   constructor() { }
 
