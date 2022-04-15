@@ -1,22 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { 
-  AbstractControl,
-  AsyncValidatorFn,
+import { Component, OnInit } from '@angular/core';
+import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
   Validators 
 } from '@angular/forms';
 import {DatePipe} from '@angular/common';
-import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, map, Observable } from 'rxjs';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/employee';
 import { DuplicateEmailCheck } from '../Utility/checkDuplicateEmail';
-import { MinMaxYearForbiden } from '../Utility/minMaxYearForbiden';
 
 @Component({
   selector: 'app-form',
@@ -37,7 +31,7 @@ export class FormComponent implements OnInit {
   };
   model!: NgbDateStruct;
   date!: string;
-  duplicateEmail = false;
+  employeeFromControl!: Employee;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -96,7 +90,7 @@ export class FormComponent implements OnInit {
   }
 
   changeVersion(e: any) {
-    this.frameworkVersion?.setValue(e.target.value, {
+    this.frameworkVersion?.setValue(e.target.value.replace(/\d(?=:): /, ''), {
       onlySelf: true,
     })
   }
@@ -124,6 +118,11 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.employeeControl);
+    console.log(this.employeeControl.value);
+    if (this.employeeControl.status === 'VALID') {
+      this._employeeSevice.add(this.employeeControl.value)
+    } else {
+      this.employeeFromControl = this.employeeControl.value;
     }
+  }
 }
