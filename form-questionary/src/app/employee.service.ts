@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { delay, map, Observable, of } from 'rxjs';
 import { Employee } from './model/employee';
 
 @Injectable({
@@ -26,9 +27,17 @@ export class EmployeeService {
     return this.employees;
   }
 
-  // public re
-
   public add(obj: Employee) {
     this.employees.push(obj);
+  }
+
+  emailExists(email: string): Observable<boolean> {
+    return of(email).pipe(
+      delay(2000),
+      map((email) => {
+        const emails = this.getAll().map(empl => empl.email)
+        return emails.includes(email);
+      })
+    );
   }
 }
