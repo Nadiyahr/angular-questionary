@@ -1,6 +1,6 @@
 # FormQuestionary
 
-[DEMO](https://nadiyahr.github.io/questionary-tt-angular/)
+[DEMO](https://nadiyahr.github.io/angular-questionary/)
 
 [Task](https://docs.google.com/document/d/1L0UMjgyIpQHyS8FdBaXoaYTERDQKyP4z/edit?usp=sharing&ouid=1150592304399118113913&rtpof=true&sd=true)
 
